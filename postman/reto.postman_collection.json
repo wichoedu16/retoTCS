@@ -1,0 +1,146 @@
+{
+  "info": {
+    "name": "Banco API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Crear Cliente",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:8080/api/clientes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"nombre\": \"Jose Lema\",\n\t\"identificacion\": \"1234567890\",\n\t\"direccion\": \"Otavalo sn y principal\",\n\t\"telefono\": \"098254785\",\n\t\"password\": \"1234\"\n}",
+              "options": {"raw": {"language": "json"}}
+            }
+          }
+        },
+        {
+          "name": "Obtener Cliente",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/clientes/1"
+          }
+        },
+        {
+          "name": "Listar Clientes",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/clientes"
+          }
+        },
+        {
+          "name": "Actualizar Cliente",
+          "request": {
+            "method": "PUT",
+            "url": "http://localhost:8080/api/clientes/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"nombre\": \"Jose Lema Actualizado\",\n\t\"direccion\": \"Nueva Dirección\",\n\t\"telefono\": \"098254785\"\n}",
+              "options": {"raw": {"language": "json"}}
+            }
+          }
+        },
+        {
+          "name": "Eliminar Cliente",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/api/clientes/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cuentas",
+      "item": [
+        {
+          "name": "Crear Cuenta",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:8080/api/cuentas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"numeroCuenta\": \"478758\",\n\t\"tipoCuenta\": \"Ahorro\",\n\t\"saldoInicial\": 2000.00,\n\t\"clienteId\": 1\n}",
+              "options": {"raw": {"language": "json"}}
+            }
+          }
+        },
+        {
+          "name": "Obtener Cuenta",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/cuentas/478758"
+          }
+        },
+        {
+          "name": "Listar Cuentas",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/cuentas"
+          }
+        },
+        {
+          "name": "Actualizar Cuenta",
+          "request": {
+            "method": "PUT",
+            "url": "http://localhost:8080/api/cuentas/478758",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"tipoCuenta\": \"Corriente\",\n\t\"estado\": true\n}",
+              "options": {"raw": {"language": "json"}}
+            }
+          }
+        },
+        {
+          "name": "Eliminar Cuenta",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/api/cuentas/478758"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Movimientos",
+      "item": [
+        {
+          "name": "Realizar Movimiento",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:8080/api/movimientos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"numeroCuenta\": \"478758\",\n\t\"valor\": -575.00\n}",
+              "options": {"raw": {"language": "json"}}
+            }
+          }
+        },
+        {
+          "name": "Obtener Movimiento",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/movimientos/1"
+          }
+        },
+        {
+          "name": "Listar Movimientos",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/movimientos"
+          }
+        },
+        {
+          "name": "Reporte por Fechas",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/movimientos/reportes?fechaInicio=2022-02-01&fechaFin=2022-02-28&clienteId=1"
+          }
+        }
+      ]
+    }
+  ]
+}

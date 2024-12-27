@@ -1,0 +1,50 @@
+package com.werp.demo.service;
+
+import com.werp.demo.exception.BusinessException;
+import com.werp.demo.model.Cliente;
+import com.werp.demo.repository.interfaces.IClienteRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class ClienteService {
+    private final IClienteRepository clienteRepository;
+
+    public Cliente crear(Cliente cliente) {
+        if (clienteRepository.existsByIdentificacion(cliente.getIdentificacion())) {
+            throw new BusinessException("Ya existe un cliente con esta identificación");
+        }
+        cliente.setEstado(true);
+        return clienteRepository.save(cliente);
+    }
+
+    public Cliente actualizar(Long id, Cliente cliente) {
+        Cliente existente = clienteRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("Cliente no encontrado"));
+
+        existente.setNombre(cliente.getNombre());
+        existente.setDireccion(cliente.getDireccion());
+        existente.setTelefono(cliente.getTelefono());
+
+        return clienteRepository.save(existente);
+    }
+
+    public List<Cliente> listarTodos() {
+        return clienteRepository.findAll();
+    }
+
+    public Cliente buscarPorId(Long id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("Cliente no encontrado"));
+    }
+
+    public void eliminar(Long id) {
+        if (!clienteRepository.findById(id).isPresent()) {
+            throw new BusinessException("Cliente no encontrado");
+        }
+        clienteRepository.deleteById(id);
+    }
+}
