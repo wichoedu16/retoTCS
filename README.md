@@ -21,6 +21,7 @@ API REST para gestión bancaria.
 ```mvn spring-boot:run```
 
 ## API Endpoints
+1. El archivo postman se encuentra dentro de la carpeta postman con los siguientes endpoints:
 
 - POST /api/clientes - Crear cliente
 - GET /api/clientes - Listar clientes
