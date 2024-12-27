@@ -23,21 +23,24 @@ public class ClienteController {
     @PostMapping
     public ResponseEntity<ClienteResponse> crear(@Valid @RequestBody ClienteRequest request) {
         Cliente cliente = mapper.toEntity(request);
-        Cliente creado = clienteService.crear(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(mapper.toResponse(creado));
+        return new ResponseEntity<>(
+                mapper.toResponse(clienteService.crear(cliente)),
+                HttpStatus.CREATED
+        );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteResponse> buscarPorId(@PathVariable Long id) {
-        Cliente cliente = clienteService.buscarPorId(id);
-        return ResponseEntity.ok(mapper.toResponse(cliente));
+    public ResponseEntity<ClienteResponse> obtener(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                mapper.toResponse(clienteService.buscarPorId(id))
+        );
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteResponse>> listarTodos() {
-        List<Cliente> clientes = clienteService.listarTodos();
-        return ResponseEntity.ok(mapper.toResponseList(clientes));
+    public ResponseEntity<List<ClienteResponse>> listar() {
+        return ResponseEntity.ok(
+                mapper.toResponseList(clienteService.listarTodos())
+        );
     }
 
     @PutMapping("/{id}")
@@ -45,8 +48,9 @@ public class ClienteController {
             @PathVariable Long id,
             @Valid @RequestBody ClienteRequest request) {
         Cliente cliente = mapper.toEntity(request);
-        Cliente actualizado = clienteService.actualizar(id, cliente);
-        return ResponseEntity.ok(mapper.toResponse(actualizado));
+        return ResponseEntity.ok(
+                mapper.toResponse(clienteService.actualizar(id, cliente))
+        );
     }
 
     @DeleteMapping("/{id}")

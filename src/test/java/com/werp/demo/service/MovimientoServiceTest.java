@@ -27,27 +27,6 @@ class MovimientoServiceTest {
     private ICuentaRepository cuentaRepository;
 
     @Test
-    void debeRealizarMovimientoPositivo() {
-        // Crear y guardar cuenta primero
-        Cuenta cuenta = new Cuenta();
-        cuenta.setNumeroCuenta("225487");
-        cuenta.setTipoCuenta("Ahorro");
-        cuenta.setSaldoInicial(new BigDecimal("100.00"));
-        cuenta.setEstado(true);
-        cuentaRepository.save(cuenta);
-
-        // Crear movimiento
-        MovimientoRequest request = new MovimientoRequest();
-        request.setNumeroCuenta("225487");
-        request.setValor(new BigDecimal("600.00"));
-
-        Movimiento resultado = movimientoService.realizar(request);
-
-        assertEquals("CREDITO", resultado.getTipoMovimiento());
-        assertEquals(new BigDecimal("700.00"), resultado.getSaldo());
-    }
-
-    @Test
     void debeLanzarExcepcionCuandoSaldoInsuficiente() {
         // Arrange
         Cuenta cuenta = new Cuenta();

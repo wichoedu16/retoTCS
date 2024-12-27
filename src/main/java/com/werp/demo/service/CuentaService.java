@@ -48,6 +48,11 @@ public class CuentaService {
         return cuentaRepository.save(cuenta);
     }
 
+    public Cuenta obtenerPorNumeroCuenta(String numeroCuenta) {
+        return cuentaRepository.findByNumeroCuenta(numeroCuenta)
+                .orElseThrow(() -> new BusinessException("Numero de cuenta no encontrada"));
+    }
+
     public List<Cuenta> listarTodos() {
         return cuentaRepository.findAll();
     }

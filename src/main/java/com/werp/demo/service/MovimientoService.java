@@ -24,7 +24,6 @@ public class MovimientoService {
                 .orElseThrow(() -> new BusinessException("Cuenta no encontrada"));
 
         BigDecimal nuevoSaldo = cuenta.getSaldoInicial().add(request.getValor());
-
         if (request.getValor().compareTo(BigDecimal.ZERO) < 0 &&
                 nuevoSaldo.compareTo(BigDecimal.ZERO) < 0) {
             throw new BusinessException("Saldo no disponible");
@@ -44,7 +43,19 @@ public class MovimientoService {
         return movimientoRepository.save(movimiento);
     }
 
-    public List<Movimiento> listarPorCuenta(String numeroCuenta) {
-        return movimientoRepository.findByCuentaNumeroCuenta(numeroCuenta);
+    public Movimiento obtenerPorId(Long id) {
+        return movimientoRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("Movimiento no encontrado"));
+    }
+
+    public List<Movimiento> listarTodos() {
+        return movimientoRepository.findAll();
+    }
+
+    public void eliminar(Long id) {
+        if (!movimientoRepository.existsById(id)) {
+            throw new BusinessException("Movimiento no encontrado");
+        }
+        movimientoRepository.deleteById(id);
     }
 }

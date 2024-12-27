@@ -33,6 +33,11 @@ public class CuentaController {
         return ResponseEntity.ok(mapper.toResponseList(cuentas));
     }
 
+    @GetMapping("/numero/{numeroCuenta}")
+    public ResponseEntity<CuentaResponse> obtenerPorNumeroCuenta(String numeroCuenta) {
+        return ResponseEntity.ok(mapper.toResponse(cuentaService.obtenerPorNumeroCuenta(numeroCuenta)));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<CuentaResponse> actualizar(
             @PathVariable Long id,

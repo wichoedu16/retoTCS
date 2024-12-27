@@ -21,9 +21,17 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public Cliente actualizar(Long id, Cliente cliente) {
-        Cliente existente = clienteRepository.findById(id)
+    public Cliente buscarPorId(Long id) {
+        return clienteRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("Cliente no encontrado"));
+    }
+
+    public List<Cliente> listarTodos() {
+        return clienteRepository.findAll();
+    }
+
+    public Cliente actualizar(Long id, Cliente cliente) {
+        Cliente existente = buscarPorId(id);
 
         existente.setNombre(cliente.getNombre());
         existente.setDireccion(cliente.getDireccion());
@@ -32,17 +40,8 @@ public class ClienteService {
         return clienteRepository.save(existente);
     }
 
-    public List<Cliente> listarTodos() {
-        return clienteRepository.findAll();
-    }
-
-    public Cliente buscarPorId(Long id) {
-        return clienteRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("Cliente no encontrado"));
-    }
-
     public void eliminar(Long id) {
-        if (!clienteRepository.findById(id).isPresent()) {
+        if (!clienteRepository.existsById(id)) {
             throw new BusinessException("Cliente no encontrado");
         }
         clienteRepository.deleteById(id);
