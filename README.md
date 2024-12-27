@@ -1,4 +1,4 @@
-# Banco App
+# Reto Tecnico TCS
 
 API REST para gestión bancaria.
 
@@ -12,7 +12,7 @@ API REST para gestión bancaria.
 ## Instalación
 
 1. Clonar repositorio:
-```git clone https://github.com/TU-USUARIO/banco-app.git```
+```git clone https://github.com/wichoedu16/retoTCS```
 
 2. Iniciar base de datos:
 ```docker-compose up -d```
