@@ -9,10 +9,11 @@ import lombok.Data;
 public class ClienteRequest {
     @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
-    private String genero;
     @NotBlank(message = "La identificación es obligatoria")
     private String identificacion;
+    private String genero;
     private String direccion;
     private String telefono;
     private String password;
+    private Boolean esado;
 }
