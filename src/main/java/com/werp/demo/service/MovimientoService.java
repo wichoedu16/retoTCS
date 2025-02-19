@@ -101,7 +101,7 @@ public class MovimientoService {
                         .filter(mov -> identificacion.equals(mov.getIdentificacion()))
                         .collect(Collectors.toList());
             } else
-                throw new BusinessException("Cliente con cedula: " + identificacion + " no encontrado ");
+                throw new BusinessException("Cliente con cédula: " + identificacion + " no encontrado ");
         }
 
         if (numCuenta != null && !numCuenta.isEmpty()) {
