@@ -26,6 +26,12 @@ public class ClienteService {
                 .orElseThrow(() -> new BusinessException("Cliente no encontrado"));
     }
 
+
+    public Cliente buscarPorCedula(String cedula) {
+        return clienteRepository.findByIdentificacion(cedula)
+                .orElseThrow(() -> new BusinessException("Cliente con cedula: " + cedula + " no encontrado "));
+    }
+
     public List<Cliente> listarTodos() {
         return clienteRepository.findAll();
     }
@@ -42,8 +48,9 @@ public class ClienteService {
 
     public void eliminar(Long id) {
         if (!clienteRepository.existsById(id)) {
-            throw new BusinessException("Cliente no encontrado");
+            throw new BusinessException("No se pudo eliminar cliente. Cliente no encontrado");
         }
         clienteRepository.deleteById(id);
     }
+
 }

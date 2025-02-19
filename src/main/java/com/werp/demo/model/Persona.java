@@ -1,13 +1,11 @@
 package com.werp.demo.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Data;
 
-@MappedSuperclass
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
+@MappedSuperclass
 public abstract class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

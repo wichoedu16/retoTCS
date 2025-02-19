@@ -22,7 +22,7 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<ClienteResponse> crear(@Valid @RequestBody ClienteRequest request) {
-        Cliente cliente = mapper.toEntity(request);
+        Cliente cliente = mapper.toEntityWithPersonaFields(request);
         return new ResponseEntity<>(
                 mapper.toResponse(clienteService.crear(cliente)),
                 HttpStatus.CREATED
@@ -33,6 +33,13 @@ public class ClienteController {
     public ResponseEntity<ClienteResponse> obtener(@PathVariable Long id) {
         return ResponseEntity.ok(
                 mapper.toResponse(clienteService.buscarPorId(id))
+        );
+    }
+
+    @GetMapping("/cedula/{cedula}")
+    public ResponseEntity<ClienteResponse> obtenerPorCedula(@PathVariable String cedula) {
+        return ResponseEntity.ok(
+                mapper.toResponse(clienteService.buscarPorCedula(cedula))
         );
     }
 
