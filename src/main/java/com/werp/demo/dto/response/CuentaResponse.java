@@ -14,4 +14,5 @@ public class CuentaResponse {
     BigDecimal saldoInicial;
     Boolean estado;
     String clienteNombre;
+    String identificacion;
 }

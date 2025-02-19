@@ -9,6 +9,7 @@ import com.werp.demo.repository.interfaces.ICuentaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -25,14 +26,18 @@ public class CuentaService {
         Cliente cliente = clienteRepository.findById(request.getClienteId())
                 .orElseThrow(() -> new BusinessException("Cliente no encontrado"));
 
-        Cuenta cuenta = new Cuenta();
-        cuenta.setNumeroCuenta(request.getNumeroCuenta());
-        cuenta.setTipoCuenta(request.getTipoCuenta());
-        cuenta.setSaldoInicial(request.getSaldoInicial());
-        cuenta.setEstado(true);
-        cuenta.setCliente(cliente);
+        if (request.getSaldoInicial().compareTo(BigDecimal.ZERO) >= 0){
+            Cuenta cuenta = new Cuenta();
+            cuenta.setNumeroCuenta(request.getNumeroCuenta());
+            cuenta.setTipoCuenta(request.getTipoCuenta());
+            cuenta.setSaldoInicial(request.getSaldoInicial());
+            cuenta.setEstado(true);
+            cuenta.setCliente(cliente);
 
-        return cuentaRepository.save(cuenta);
+            return cuentaRepository.save(cuenta);
+        }else{
+            throw new BusinessException("El saldo inicial no puede ser menor a 0");
+        }
     }
 
     public Cuenta actualizar(Long id, CuentaRequest request) {
@@ -53,6 +58,19 @@ public class CuentaService {
                 .orElseThrow(() -> new BusinessException("Numero de cuenta no encontrada"));
     }
 
+    public List<Cuenta> obtenerPorCedula(String cedula) {
+        Cliente cliente = clienteRepository.findByIdentificacion(cedula)
+                .orElseThrow(() -> new BusinessException("Cliente con cédula: " + cedula + " no encontrado"));
+
+        List<Cuenta> cuentas = cuentaRepository.findByClienteId(cliente.getId());
+
+        if (cuentas.isEmpty()) {
+            throw new BusinessException("No se encontraron cuentas para la cédula: " + cedula);
+        }
+
+        return cuentas;
+    }
+
     public List<Cuenta> listarTodos() {
         return cuentaRepository.findAll();
     }
@@ -63,4 +81,5 @@ public class CuentaService {
         }
         cuentaRepository.deleteById(id);
     }
+
 }

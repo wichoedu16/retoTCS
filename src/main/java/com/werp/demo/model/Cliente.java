@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Cliente extends Persona {
-    private String clienteId;
+    private Long clienteId;
     private String password;
     private Boolean estado;
 }

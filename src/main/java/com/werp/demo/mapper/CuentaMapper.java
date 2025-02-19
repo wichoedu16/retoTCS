@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CuentaMapper {
     @Mapping(target = "clienteNombre", source = "cliente.nombre")
+    @Mapping(target = "identificacion", source = "cliente.identificacion")
     CuentaResponse toResponse(Cuenta cuenta);
     Cuenta toEntity(CuentaRequest request);
     List<CuentaResponse> toResponseList(List<Cuenta> cuentas);
